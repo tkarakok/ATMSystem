@@ -15,7 +15,7 @@ namespace ATM_System
         {
             Console.WriteLine(" WELCOME TO MY BANK ");
             Console.WriteLine(" -------------------");
-            Console.WriteLine(" Please select the action to be taken \n 1 - Login \n 2 - Register ");
+            Console.WriteLine(" Please select the action to be taken \n 1 - Login \n 2 - Register \n 3 - See All Logs");
             int input = int.Parse(Console.ReadLine());
             FirstProcess(input, userManager);
         }
@@ -30,6 +30,9 @@ namespace ATM_System
                     break;
                 case 2:
                     Register(userManager);
+                    break;
+                case 3:
+                    SeeAllLogs(userManager);
                     break;
                 default:
                     break;
@@ -52,8 +55,9 @@ namespace ATM_System
                     MainMenu(userManager, user);
                 }
             }
-            again2:
+        again2:
             Console.Clear();
+            userManager.Log();
             Console.WriteLine(" USER NOT FOUND OUR SYSTEM PLEASE ENTER CORRECT TC NO OR CHOOSE NEW REGİSTER \n 1 - Try Again \n 2 - Register");
             int input = int.Parse(Console.ReadLine());
             if (input == 1)
@@ -87,7 +91,8 @@ namespace ATM_System
             Console.WriteLine(" ------------------------------ ");
             Console.WriteLine(" AMOUNT : {0}", user.Account.Amount);
             Console.WriteLine(" \n Please select the action to be taken \n 1 - Withdraw \n 2 - Deposit Money \n 3 - EFT ");
-            int input = int.Parse(Console.ReadLine());
+
+            int input = Convert.ToInt32(Console.ReadLine());
             switch (input)
             {
                 case 1:
@@ -106,7 +111,6 @@ namespace ATM_System
 
         public static void Withdraw(UserManager userManager, User user)
         {
-
             Console.Clear();
             again:
             Console.WriteLine(" **** WİTHDRAW SCREEN ****");
@@ -225,8 +229,24 @@ namespace ATM_System
             }
         }
 
-        
+        public static void SeeAllLogs(UserManager userManager)
+        {
+            foreach (string item in userManager.logs)
+            {
+                Console.WriteLine(item);
+            }
+            again:
+            Console.WriteLine(" please select process \n 1- Back To Menu");
+            int select = Convert.ToInt32(Console.ReadLine());
+            if (select == 1)
+            {
+                StartScreen(userManager);
+            }
+            else
+            {
+                goto again;
+            }
 
-
+        }
     }
 }

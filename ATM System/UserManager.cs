@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ATM_System
 {
-    class UserManager
+    class UserManager : ILogger
     {
         public List<User> users = new List<User>();
+        public List<string> logs = new List<string>();
 
         public UserManager()
         {
@@ -28,8 +29,6 @@ namespace ATM_System
                 users.Add(user);
             }
         }
-
-        
 
         public void AddUser()
         {
@@ -62,6 +61,10 @@ namespace ATM_System
             }
         }
 
-       
+        public void Log()
+        {
+            string log = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + " hatalı giriş yapıldı";
+            logs.Add(log);
+        }
     }
 }
